@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Waste Tracking & Redistribution Portal</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #333;
+        }
+        .container {
+            width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            gap: 15px;
+        }
+        .card {
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .card.available { background-color: #2196f3; }
+        .card.reserved { background-color: #ff9800; }
+        .card.collected { background-color: #4caf50; }
+        .card.redistributed { background-color: #9c27b0; }
+        .card h3 { margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; }
+        .card .count { font-size: 24px; }
+        .section h2 {
+            color: #2e7d32;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status.available { background: #e3f2fd; color: #1e88e5; }
+        .status.reserved { background: #fff3e0; color: #fb8c00; }
+        .status.collected { background: #e8f5e9; color: #43a047; }
+        .status.redistributed { background: #f3e5f5; color: #8e24aa; }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Food Waste Tracking & Redistribution Portal</h1>
+        <div class="subtitle">Connecting Campus & Community Food Surplus Efficiently</div>
+        
+        <!-- Enhancement Commit: Redistribution Status Dashboard -->
+        <div class="dashboard">
+            <div class="card available">
+                <h3>Available</h3>
+                <div class="count">2 Items (45 kg)</div>
+            </div>
+            <div class="card reserved">
+                <h3>Reserved</h3>
+                <div class="count">1 Item (15 kg)</div>
+            </div>
+            <div class="card collected">
+                <h3>Collected</h3>
+                <div class="count">1 Item (20 kg)</div>
+            </div>
+            <div class="card redistributed">
+                <h3>Redistributed</h3>
+                <div class="count">1 Item (30 kg)</div>
+            </div>
+        </div>
+
+        <!-- Initial Commit: Surplus Food Records List -->
+        <div class="section">
+            <h2>Surplus Food Log</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Food Item</th>
+                        <th>Source Entity</th>
+                        <th>Qty</th>
+                        <th>Deadline</th>
+                        <th>Pickup Location</th>
+                        <th>NGO Partner</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Veggie Fried Rice</strong></td>
+                        <td>Main Campus Canteen</td>
+                        <td>25 kg</td>
+                        <td>2:00 PM</td>
+                        <td>Block A Counter 3</td>
+                        <td>Robin Hood Army</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Assorted Sandwiches</strong></td>
+                        <td>Bistro & Bites Cafe</td>
+                        <td>20 kg</td>
+                        <td>4:30 PM</td>
+                        <td>Rear Kitchen Entrance</td>
+                        <td>Feed The Needy</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Paneer Butter Masala</strong></td>
+                        <td>North Canteen</td>
+                        <td>15 kg</td>
+                        <td>1:30 PM</td>
+                        <td>Main Dispatch Desk</td>
+                        <td>Shelter Home Trust</td>
+                        <td><span class="status reserved">Reserved</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wheat Rotis & Sabzi</strong></td>
+                        <td>Campus Central Mess</td>
+                        <td>20 kg</td>
+                        <td>11:00 AM</td>
+                        <td>Loading Dock 2</td>
+                        <td>Hope Foundation</td>
+                        <td><span class="status collected">Collected</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fresh Fruit Salad Bowls</strong></td>
+                        <td>Delish Restaurant</td>
+                        <td>30 kg</td>
+                        <td>8:00 PM</td>
+                        <td>Billing Counter</td>
+                        <td>City Care NGO</td>
+                        <td><span class="status redistributed">Redistributed</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            Automated Delivery Managed by Jenkins • Containerized via Docker • Orchestrated with Kubernetes
+        </div>
+    </div>
+</body>
+</html>
