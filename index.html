@@ -4,229 +4,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Waste Tracking & Redistribution Portal</title>
+    <title>Food Waste Tracking and Redistribution Portal</title>
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            color: #26332b;
+            font-family: Arial, sans-serif;
+            background: #f3f7f4;
+            color: #24352b;
         }
 
-        .container {
-            max-width: 1200px;
-            width: 94%;
-            margin: 35px auto;
-            background: white;
-            padding: 28px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,.12);
+        header {
+            background: #176b45;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
         }
 
-        h1 { text-align: center; color: #2e7d32; }
-        .subtitle { text-align: center; color: #607064; margin-bottom: 28px; }
+        header h1 {
+            margin: 0 0 10px;
+        }
 
-        .dashboard {
+        header p {
+            margin: 0;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+        }
+
+        .summary {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 15px;
-            margin: 25px 0 35px;
+            gap: 18px;
         }
 
         .card {
-            padding: 20px 12px;
+            background: white;
+            padding: 22px;
             border-radius: 12px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,.08);
+            box-shadow: 0 3px 12px #0000000d;
+            border-top: 5px solid #176b45;
         }
 
-        .available { background: #1976d2; }
-        .reserved { background: #ef8f00; }
-        .collected { background: #388e3c; }
-        .redistributed { background: #8e24aa; }
-
-        .card h3 { margin: 0 0 12px; font-size: 14px; }
-        .count { font-size: 22px; font-weight: bold; }
-        .weight { margin-top: 6px; font-size: 13px; }
-
-        h2 {
-            color: #2e7d32;
-            border-bottom: 2px solid #a5d6a7;
-            padding-bottom: 9px;
+        .card h3 {
+            margin: 0 0 12px;
+            font-size: 16px;
         }
 
-        .table-wrap { overflow-x: auto; }
+        .count {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 0 8px;
+        }
+
+        .quantity {
+            color: #5b6b61;
+            font-size: 14px;
+        }
+
+        .available { border-color: #218838; }
+        .reserved { border-color: #e0a800; }
+        .collected { border-color: #087990; }
+        .redistributed { border-color: #6f42c1; }
+
+        .collection-banner {
+            margin: 24px 0 32px;
+            background: #e0f3e7;
+            border: 1px solid #b5dfc5;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .collection-banner strong {
+            color: #176b45;
+            font-size: 24px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #0000000d;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 18px;
-            min-width: 850px;
+            min-width: 650px;
         }
 
         th, td {
-            padding: 13px 11px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e7ece8;
         }
 
-        th { background: #e8f5e9; color: #2e7d32; }
-        tbody tr:hover { background: #f6fbf6; }
+        th {
+            background: #e6f0e9;
+        }
 
         .status {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 16px;
+            padding: 6px 10px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            white-space: nowrap;
         }
 
-        .status.available { background: #e3f2fd; color: #1565c0; }
-        .status.reserved { background: #fff3e0; color: #e07800; }
-        .status.collected { background: #e8f5e9; color: #2e7d32; }
-        .status.redistributed { background: #f3e5f5; color: #7b1fa2; }
+        .status-available {
+            background: #d7f3df;
+            color: #176b35;
+        }
 
-        .note {
-            margin-top: 22px;
-            padding: 14px;
-            border-left: 4px solid #43a047;
-            background: #f1f8e9;
+        .status-reserved {
+            background: #fff0bf;
+            color: #805b00;
+        }
+
+        .status-collected {
+            background: #d5f0f5;
+            color: #075b6b;
+        }
+
+        .status-redistributed {
+            background: #e9ddff;
+            color: #56309a;
         }
 
         footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 18px;
-            border-top: 1px solid #ddd;
-            color: #68736a;
-            font-size: 13px;
+            padding: 24px;
+            color: #617066;
         }
 
         @media (max-width: 760px) {
-            .dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .container { padding: 18px; }
-            h1 { font-size: 24px; }
+            .summary {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
-        @media (max-width: 380px) {
-            .dashboard { grid-template-columns: 1fr; }
+        @media (max-width: 420px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Food Waste Tracking & Redistribution Portal</h1>
-    <p class="subtitle">
-        Connecting university canteens, restaurants and community organizations
-    </p>
+    <header>
+        <h1>Food Waste Tracking and Redistribution Portal</h1>
+        <p>Redistribution Status Dashboard</p>
+    </header>
 
-    <h2>Redistribution Status Dashboard</h2>
+    <main>
+        <h2 class="section-title">Redistribution Overview</h2>
 
-    <div class="dashboard">
-        <div class="card available">
-            <h3>AVAILABLE</h3>
-            <div class="count">2 Records</div>
-            <div class="weight">45 kg for collection</div>
+        <section class="summary">
+            <div class="card available">
+                <h3>Available</h3>
+                <p class="count">2</p>
+                <p class="quantity">45 kg of food</p>
+            </div>
+
+            <div class="card reserved">
+                <h3>Reserved</h3>
+                <p class="count">1</p>
+                <p class="quantity">15 kg of food</p>
+            </div>
+
+            <div class="card collected">
+                <h3>Collected</h3>
+                <p class="count">1</p>
+                <p class="quantity">20 kg of food</p>
+            </div>
+
+            <div class="card redistributed">
+                <h3>Redistributed</h3>
+                <p class="count">1</p>
+                <p class="quantity">30 kg of food</p>
+            </div>
+        </section>
+
+        <section class="collection-banner">
+            <h2>Estimated Quantity Available for Collection</h2>
+            <strong>45 kg</strong>
+            <p>Two food records are currently available for collection.</p>
+        </section>
+
+        <h2 class="section-title">Food Redistribution Records</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Food Item</th>
+                        <th>Donor</th>
+                        <th>Quantity</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vegetable Fried Rice</td>
+                        <td>Green Leaf Restaurant</td>
+                        <td>25 kg</td>
+                        <td>Vellore</td>
+                        <td><span class="status status-available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fresh Bread</td>
+                        <td>Sunrise Bakery</td>
+                        <td>20 kg</td>
+                        <td>Vellore</td>
+                        <td><span class="status status-available">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Cooked Meals</td>
+                        <td>City Canteen</td>
+                        <td>15 kg</td>
+                        <td>Katpadi</td>
+                        <td><span class="status status-reserved">Reserved</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fresh Vegetables</td>
+                        <td>Local Market</td>
+                        <td>20 kg</td>
+                        <td>Vellore</td>
+                        <td><span class="status status-collected">Collected</span></td>
+                    </tr>
+                    <tr>
+                        <td>Packaged Meals</td>
+                        <td>Community Kitchen</td>
+                        <td>30 kg</td>
+                        <td>Katpadi</td>
+                        <td><span class="status status-redistributed">Redistributed</span></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div class="card reserved">
-            <h3>RESERVED</h3>
-            <div class="count">1 Record</div>
-            <div class="weight">15 kg reserved</div>
-        </div>
-
-        <div class="card collected">
-            <h3>COLLECTED</h3>
-            <div class="count">1 Record</div>
-            <div class="weight">20 kg collected</div>
-        </div>
-
-        <div class="card redistributed">
-            <h3>REDISTRIBUTED</h3>
-            <div class="count">1 Record</div>
-            <div class="weight">30 kg redistributed</div>
-        </div>
-    </div>
-
-    <h2>Surplus Food Records</h2>
-
-    <div class="table-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Food Item</th>
-                    <th>Restaurant / Canteen</th>
-                    <th>Quantity</th>
-                    <th>Collection Deadline</th>
-                    <th>Pickup Location</th>
-                    <th>Organization</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Vegetable Fried Rice</strong></td>
-                    <td>Main Campus Canteen</td>
-                    <td>25 kg</td>
-                    <td>2:00 PM</td>
-                    <td>Block A, Counter 3</td>
-                    <td>Robin Hood Army</td>
-                    <td><span class="status available">Available</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Assorted Sandwiches</strong></td>
-                    <td>Bistro &amp; Bites Cafe</td>
-                    <td>20 kg</td>
-                    <td>4:30 PM</td>
-                    <td>Rear Kitchen Entrance</td>
-                    <td>Feed The Needy</td>
-                    <td><span class="status available">Available</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Paneer Butter Masala</strong></td>
-                    <td>North Canteen</td>
-                    <td>15 kg</td>
-                    <td>1:30 PM</td>
-                    <td>Main Dispatch Desk</td>
-                    <td>Shelter Home Trust</td>
-                    <td><span class="status reserved">Reserved</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Rotis and Vegetable Curry</strong></td>
-                    <td>Campus Central Mess</td>
-                    <td>20 kg</td>
-                    <td>11:00 AM</td>
-                    <td>Loading Dock 2</td>
-                    <td>Hope Foundation</td>
-                    <td><span class="status collected">Collected</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Fresh Fruit Salad</strong></td>
-                    <td>Delish Restaurant</td>
-                    <td>30 kg</td>
-                    <td>8:00 PM</td>
-                    <td>Restaurant Billing Counter</td>
-                    <td>City Care NGO</td>
-                    <td><span class="status redistributed">Redistributed</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="note">
-        <strong>Collection reminder:</strong>
-        Authorized community organizations should collect available food
-        before the displayed deadlines and coordinate with the listed
-        pickup locations.
-    </div>
+    </main>
 
     <footer>
-        Food Waste Reduction Initiative | Jenkins CI/CD | Docker | Kubernetes
+        <p>Food Waste Tracking and Redistribution Portal</p>
+        <p>Reducing food waste through responsible redistribution.</p>
     </footer>
-</div>
 </body>
 </html>
