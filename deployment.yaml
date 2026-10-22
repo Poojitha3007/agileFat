@@ -13,10 +13,11 @@ spec:
         app: foodwaste-portal
     spec:
       containers:
-      - name: foodwaste-portal
-        image: kurellapoojitha/foodwaste:latest
-        ports:
-        - containerPort: 80
+        - name: foodwaste-portal
+          image: kurellapoojitha/foodwaste:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
